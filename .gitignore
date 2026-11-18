@@ -12,6 +12,8 @@ data/
 models/
 checkpoints/
 cache/
+.cache/
+.hf_cache/
 *.pt
 *.pth
 *.safetensors
