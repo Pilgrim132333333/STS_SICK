@@ -15,6 +15,8 @@ Each notebook encodes every unique sentence once with its method's official chec
 
 The STS-B test set has 1,379 pairs from [`mteb/stsbenchmark-sts`](https://huggingface.co/datasets/mteb/stsbenchmark-sts). The SICK-R test set has 4,927 pairs; it uses the original English sentence and score columns from [JSICK's source TSV](https://github.com/verypluming/JSICK/blob/b3034994192fae2f41b5937bcf69544e4282fc39/jsick/jsick.tsv), filtered to `data == "test"`. Each SICK-R notebook fetches that fixed Git commit, so Git must be installed. The MTEB `sickr-sts` collection has all 9,927 SICK pairs under one `test` split and is therefore not used here.
 
+For repeated SICK-R runs, set `SICK_TSV_PATH` to a local copy of that exact JSICK TSV. The notebooks verify its SHA-256 before use.
+
 This common direct-cosine protocol may differ from a paper's original reporting protocol or checkpoint-selection process. The raw paper scores should not be treated as directly reproduced unless these settings have been checked. The [original SentEval toolkit](https://github.com/facebookresearch/SentEval) also offers supervised regressors for STS-B and SICK-R; those are not used here.
 
 ## Notebooks and original sources
