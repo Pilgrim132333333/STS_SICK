@@ -33,6 +33,10 @@ Spearman and Pearson are correlations on the specified test sets. The displayed 
 
 These are evaluations of released checkpoints under one shared direct-cosine protocol. They are not retraining results or exact reproductions of each paper's original evaluation setup.
 
+## Exploratory lexical overlap check
+
+[`results/lexical_overlap_summary.csv`](results/lexical_overlap_summary.csv) records a descriptive word-set Jaccard check on the same test pairs. Text was Unicode NFKC-normalized and case-folded; English words (including contractions) and numbers were extracted, while punctuation was ignored. Stopwords and negation words were retained. Jaccard is the number of shared unique words divided by the number of unique words across both sentences, so it does not capture word order or repetition frequency. The preselected high-overlap threshold was 0.75. Pair-level data and the exploratory script remain outside Git.
+
 ## Notebooks and original sources
 
 | Method | STS-B | SICK-R | Paper and implementation |
