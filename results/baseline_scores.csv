@@ -1,0 +1,11 @@
+method,dataset,test_pairs,spearman,pearson,model_id,model_revision,dataset_revision,pooling,max_length,batch_size,seed
+DiffCSE,SICKR,4927,0.712216,0.79726,voidism/diffcse-bert-base-uncased-sts,ea605f716bd57f97407640374487c2c9effc94af,b3034994192fae2f41b5937bcf69544e4282fc39,cls_before_pooler,512,32,42
+DiffCSE,STSB,1379,0.805805,0.803306,voidism/diffcse-bert-base-uncased-sts,ea605f716bd57f97407640374487c2c9effc94af,96943a16ea6a35129e253c659081cb59daf81b30,cls_before_pooler,512,32,42
+ESimCSE,SICKR,4927,0.722837,0.804269,ffgcc/esimcse-bert-base-uncased,b46170e5aeab96c02dfeeabeecb82abfc3ead097,b3034994192fae2f41b5937bcf69544e4282fc39,cls_before_pooler,512,32,42
+ESimCSE,STSB,1379,0.80148,0.804252,ffgcc/esimcse-bert-base-uncased,b46170e5aeab96c02dfeeabeecb82abfc3ead097,96943a16ea6a35129e253c659081cb59daf81b30,cls_before_pooler,512,32,42
+InfoCSE,SICKR,4927,0.713615,0.7926,ffgcc/InfoCSE-bert-base,659ec17bb73307ce2ec81b76f763ccf80e247b88,b3034994192fae2f41b5937bcf69544e4282fc39,cls_before_pooler,512,32,42
+InfoCSE,STSB,1379,0.819948,0.818662,ffgcc/InfoCSE-bert-base,659ec17bb73307ce2ec81b76f763ccf80e247b88,96943a16ea6a35129e253c659081cb59daf81b30,cls_before_pooler,512,32,42
+PromptBERT,SICKR,4927,0.706306,0.789052,royokong/unsup-PromptBERT,28293905ecad4140f96be6495c1415ab8fffe907,b3034994192fae2f41b5937bcf69544e4282fc39,prompt_mask,512,32,42
+PromptBERT,STSB,1379,0.819899,0.818141,royokong/unsup-PromptBERT,28293905ecad4140f96be6495c1415ab8fffe907,96943a16ea6a35129e253c659081cb59daf81b30,prompt_mask,512,32,42
+WhitenedCSE,SICKR,4927,0.724995,0.796916,SupstarZh/whitenedcse-bert-base,00fc045d0853c775627a15303c3889b37afbd8d7,b3034994192fae2f41b5937bcf69544e4282fc39,cls_pooler,512,32,42
+WhitenedCSE,STSB,1379,0.798291,0.798571,SupstarZh/whitenedcse-bert-base,00fc045d0853c775627a15303c3889b37afbd8d7,96943a16ea6a35129e253c659081cb59daf81b30,cls_pooler,512,32,42

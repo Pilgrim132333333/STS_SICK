@@ -4,10 +4,10 @@ This repository contains one standalone notebook for each of five published sent
 
 ## Hardware and setup
 
-- Target: NVIDIA RTX 3080 with CUDA-enabled PyTorch, 10 or 12 GiB VRAM.
+- Tested on an NVIDIA RTX 3080 Ti with 12 GiB VRAM; the notebooks use settings intended to fit RTX 3080 variants with 10 or 12 GiB.
 - Use Python 3.10–3.12 in a Jupyter environment. The first code cell checks the required packages and installs any that are missing while preserving an existing CUDA-enabled PyTorch installation.
 - Run each notebook from top to bottom. Downloads require access to Hugging Face. Models and datasets are cached locally and are not included in Git.
-- The notebooks have **not** been executed in this repository: the authoring machine has no NVIDIA GPU. Run them on the RTX 3080 and retain the resulting notebook outputs before using results in a paper.
+- All ten notebooks were executed on the server and their outputs are committed. The run used Python 3.10.8, PyTorch 2.1.2+cu118, Transformers 4.46.3, and Datasets 3.2.0. On this server, `HF_ENDPOINT=https://hf-mirror.com` was needed because direct access to Hugging Face timed out; model and dataset revision hashes are recorded in the notebooks.
 
 ## Evaluation protocol
 
@@ -18,6 +18,20 @@ The STS-B test set has 1,379 pairs from [`mteb/stsbenchmark-sts`](https://huggin
 For repeated SICK-R runs, set `SICK_TSV_PATH` to a local copy of that exact JSICK TSV. The notebooks verify its SHA-256 before use.
 
 This common direct-cosine protocol may differ from a paper's original reporting protocol or checkpoint-selection process. The raw paper scores should not be treated as directly reproduced unless these settings have been checked. The [original SentEval toolkit](https://github.com/facebookresearch/SentEval) also offers supervised regressors for STS-B and SICK-R; those are not used here.
+
+## Executed baseline results
+
+Spearman and Pearson are correlations on the specified test sets. The displayed scores, checkpoint hashes, dataset revisions, and evaluation settings are in [`results/baseline_scores.csv`](results/baseline_scores.csv).
+
+| Method | STS-B Spearman | STS-B Pearson | SICK-R Spearman | SICK-R Pearson |
+| --- | ---: | ---: | ---: | ---: |
+| ESimCSE | 0.801480 | 0.804252 | 0.722837 | 0.804269 |
+| DiffCSE | 0.805805 | 0.803306 | 0.712216 | 0.797260 |
+| PromptBERT | 0.819899 | 0.818141 | 0.706306 | 0.789052 |
+| InfoCSE | 0.819948 | 0.818662 | 0.713615 | 0.792600 |
+| WhitenedCSE | 0.798291 | 0.798571 | 0.724995 | 0.796916 |
+
+These are evaluations of released checkpoints under one shared direct-cosine protocol. They are not retraining results or exact reproductions of each paper's original evaluation setup.
 
 ## Notebooks and original sources
 
