@@ -1,0 +1,5 @@
+dataset,split,pairs,high_pairs,high_low_gold
+STSB,train,5749,278,4
+STSB,validation,1500,49,1
+SICKR,train,4500,1065,54
+SICKR,trial,500,107,2

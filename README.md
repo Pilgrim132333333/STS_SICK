@@ -41,6 +41,8 @@ These are evaluations of released checkpoints under one shared direct-cosine pro
 
 ## Notebooks and original sources
 
+The follow-up train/development diagnostics are in `results/train_dev_overlap_counts.csv` and `results/train_dev_overlap_metrics.csv`. They use the same word-set Jaccard threshold (0.75), gold-score cutoffs (STS-B <=2.5; SICK-R <=3), and five checkpoint encoders. SICK's `trial` split is treated as development data. All 20 prediction files were checked for identical sentence/gold alignment across models and the rank correlations were independently recalculated from the saved scores. AUC is omitted when fewer than 10 low-gold examples are available: SICK trial has only 2, while STS-B train/validation have 4/1. These exploratory statistics do not establish a causal failure mechanism. Published checkpoints may have been selected using STS-B development scores, so these splits are diagnostic evidence rather than an independent benchmark of checkpoint generalization. Pair-level outputs and the diagnostic script remain in the ignored `runs/` directory.
+
 | Method | STS-B | SICK-R | Paper and implementation |
 | --- | --- | --- | --- |
 | ESimCSE | `notebooks/ESimCSE_STSB.ipynb` | `notebooks/ESimCSE_SICKR.ipynb` | [Paper](https://aclanthology.org/2022.coling-1.342/) · [Code](https://github.com/caskcsg/sentemb/tree/main/ESimCSE) |
