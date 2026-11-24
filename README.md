@@ -1,4 +1,45 @@
-# STS-B and SICK-R baseline evaluation
+# 高效句子语义表示：STS 基线与 GenEOL 推理优化
+
+## 实验背景
+
+本项目研究句子语义相似度（Semantic Textual Similarity, STS）：将两个句子编码为向量，通过余弦相似度预测语义相关程度，并与人工评分比较。数据集为 STS-B 与 SICK-R，主指标为 Spearman，辅助指标为 Pearson。
+
+项目已完成五种公开句向量方法在两个测试集上的 checkpoint 评价。复现范围是加载作者公开权重并统一评价，不包含重新训练原模型。已有 notebook 和结果说明保留在本文后半部分。
+
+后续探索涉及词级匹配、少样本适配与回放、样本选择、排序损失、句法短语匹配。根据已有探索记录，这些具体实现尚未形成足够稳健的新增收益；部分信号在控制实验协议后消失。负结果应保留，不能据此断言相关研究领域整体无效。
+
+当前重心是降低 GenEOL 的时间成本。该方法生成句子变体，再编码、聚合，以额外计算换取表示质量。本项目拟研究生成数量 m 的按需分配，以及推理执行优化。背景见 [GenEOL 原论文](https://aclanthology.org/2025.findings-naacl.122/)，实现参照 [官方代码](https://github.com/raghavlite/GenEOL)。
+
+**研究问题：在预先约定的 STS 质量容忍范围内，自适应生成数量与推理优化能否减少真实端到端耗时，并优于调优后的固定 m 基线？**
+
+## 代码与实验状态
+
+| 内容 | 入口 | 状态 |
+| --- | --- | --- |
+| 五方法 × 两数据集评价 | `notebooks/` | 远程 main 包含 10 个已执行 notebook |
+| 基线与词汇重叠汇总 | `results/` | 远程 main 已有 |
+| 适配、选样、损失、短语探索 | 服务器脚本、忽略的 `runs/`、对话实验记录 | 待同步、登记与逐项审计 |
+| GenEOL 下一阶段 | [实验方案](docs/GENEOL_EXPERIMENT_PLAN.md) | 待执行，没有本项目 GenEOL 成绩 |
+| 代码整理约定 | [代码组织说明](docs/CODE_ORGANIZATION.md) | 尚未完成源代码迁移 |
+
+本次整理读取了远程 main（03941fe）的目录与 README。本地终端和 Node 运行时无法启动，文件工具亦未读到原有 README，因此本文保留的是远程 README 快照；未核验本地工作树、服务器最新文件或未提交改动。以下拟建目录不是已经存在的运行接口。
+
+## 当前运行设想
+
+服务器已实查，现有设备对应的第一轮配置与实验顺序见 [服务器基线实验协议](docs/GENEOL_SERVER_BASELINE.md)。完整 BF16 不作为这台 12GiB 设备的主运行方案。
+
+- 生成器：`mistralai/Mistral-7B-Instruct-v0.1`。
+- 向量模型：`mistralai/Mistral-7B-v0.1`。
+- 12 GiB 设备先做 4-bit 可运行性验证，两个模型顺序加载；显存允许时另建 BF16 对照。精度配置分别报告。
+- 第一轮先固定 m、测质量与耗时，不直接开发自适应算法或自定义算子。
+
+原论文 Table 2 中，此模型组合 m=8 / m=32 的 STS-B 分别为 81.67 / 81.56，SICK-R 为 76.44 / 76.83（Spearman ×100）。这是文献参照，不能写成本项目或 4-bit 成绩。复现须对齐变换组合、提示、池化、归一化和评价划分。[原论文](https://aclanthology.org/2025.findings-naacl.122.pdf)
+
+## 既有基线记录
+
+以下保留已读取的远程 README，说明已完成基线的范围与运行方式。
+
+### STS-B and SICK-R baseline evaluation
 
 This repository contains one standalone notebook for each of five published sentence-embedding methods on each of two English sentence-relatedness test sets. These notebooks **evaluate author-released, pretrained checkpoints**. They do not reproduce the original model-training runs or contain a proposed research method.
 
@@ -54,3 +95,4 @@ The follow-up train/development diagnostics are in `results/train_dev_overlap_co
 STS-B should cite [Cer et al. (2017)](https://aclanthology.org/S17-2001/); SICK-R should cite [Marelli et al. (2014)](https://aclanthology.org/L14-1314/). Cite the respective original method papers and released checkpoint/code resources in any report.
 
 The coursework's final submission has additional requirements, including an independently developed proposed method, its two notebooks, executed outputs, and appendix evidence. This repository currently covers only the five existing-method evaluation pairs.
+
